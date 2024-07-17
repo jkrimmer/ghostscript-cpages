@@ -12,15 +12,30 @@ async function loadWasm() {
 
 function postProcessing() {
     const carray = FS.readFile("colors.txt", { encoding: 'utf8' }).split('\n');
-    const capturingRegex = /^ 0.00000  0.00000  0.00000/;
-    // if we filter the "null" elements, we might also count empty lines that do not correspond to any pages
-    const occursin = carray.map((x) => x.match(capturingRegex)).filter((x) => x !== null);
-    const Nbw = occursin.length;
-    return Nbw;
+    // regex for detecting black and white / blank pages
+    const bwRegex = /^ 0.00000  0.00000  0.00000/;
+    const blankRegex = /^ 0.00000  0.00000  0.00000  0.00000/;
+    // there is always one additional blank line at the end, total pages
+    const Npages = carray.length - 1;
+    // first, filter blank pages
+    const blank = carray.map((x) => x.match(blankRegex)).filter((x) => x !== null);
+    const Nblank = blank.length;
+    // now, filter black and white, substract blanks
+    const bw = carray.map((x) => x.match(bwRegex)).filter((x) => x !== null);
+    const Nbw = bw.length - Nblank;
+    // finally, colorful pages
+    const Ncolor = Npages - Nblank - Nbw;
+   
+    return {
+        nPages: Npages,
+        cPages: Ncolor,
+        bwPages: Nbw,
+        blankPages: Nblank,
+    };
 }
 
 
-async function analyzePdf(file) {
+async function analyzePdf(file, fn) {
     const fileReader = new FileReader();
 
     fileReader.onload = async function(event) {
@@ -37,17 +52,18 @@ async function analyzePdf(file) {
 
         wasmInstance.callMain(gsargs);
 
-        try {
-            const result = postProcessing();
+        const result = postProcessing();
+        document.getElementById('nPages').style.display = 'block';
+        document.getElementById('results').style.display = 'block';
 
-            document.getElementById('result').innerText = `Processing Result: ${result} black/white pages`;
+        document.getElementById('nPages').innerHTML = `Found ${result["nPages"]} pages in the file "${fn}". Thereof,`;
+        document.getElementById('cPages').innerHTML = `${result["cPages"]} contain color,`;
+        document.getElementById('bwPages').innerHTML = `${result["bwPages"]} are black and white,`;
+        document.getElementById('blankPages').innerHTML = `and ${result["blankPages"]} are blank.`;
 
-            document.getElementById('pdfUpload').style.display = 'none';
-            document.getElementById('analyzeButton').style.display = 'none';
-            document.getElementById('newUploadButton').style.display = 'inline';
-        } catch (error) {
-            document.getElementById('result').innerText = `Processing Error: ${error.message}`;
-        }
+        document.getElementById('pdfUpload').style.display = 'none';
+        document.getElementById('analyzeButton').style.display = 'none';
+        document.getElementById('newUploadButton').style.display = 'inline';
     };
 
     fileReader.readAsArrayBuffer(file);
@@ -56,7 +72,7 @@ async function analyzePdf(file) {
 document.getElementById('analyzeButton').addEventListener('click', () => {
     const fileInput = document.getElementById('pdfUpload');
     if (fileInput.files.length > 0) {
-        analyzePdf(fileInput.files[0]);
+        analyzePdf(fileInput.files[0], fileInput.files[0].name);
     } else {
         alert('Please upload a PDF file first.');
     }
@@ -66,8 +82,9 @@ document.getElementById('newUploadButton').addEventListener('click', () => {
     document.getElementById('pdfUpload').style.display = 'inline';
     document.getElementById('analyzeButton').style.display = 'inline';
     document.getElementById('newUploadButton').style.display = 'none';
-    document.getElementById('result').innerText = '';
     document.getElementById('pdfUpload').value = '';
+    document.getElementById('nPages').style.display = 'none';
+    document.getElementById('results').style.display = 'none';
 });
 
 window.onload = loadWasm;

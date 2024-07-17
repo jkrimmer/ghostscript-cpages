@@ -3,14 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Colorpage Analyzer</title>
+    <title>PDF Pagecolor Analyzer</title>
 </head>
 <body>
-    <h1>PDF Colorpage Analyzer</h1>
-    <input type="file" id="pdfUpload" accept="application/pdf">
-    <button id="analyzeButton">Analyze PDF</button>
-    <div id="result"></div>
-    <button id="newUploadButton" style="display: none;">Analyze Another PDF</button>
+    <!-- Title and introduction -->
+    <main>
+        <article>
+            <h1>PDF Pagecolor Analyzer</h1>
+            <p>Select a PDF file to obtain the number of blank, black and white, and color pages of the document. The selected PDF file does <b>not</b> leave your device, all the processing happens locally in your browser. This way, we can ensure data privacy.</p>
+            <aside><p>Depending on your file, the processing might take some time and your browser might seem stuck. If this happens, please be patient!</p></aside>
+            <!-- Buttons and so on -->
+            <input type="file" id="pdfUpload" accept="application/pdf">
+            <button id="analyzeButton">Analyze PDF</button>
+            <p id="nPages" style="display: none;"></p>
+            <ul id="results" style="display: none;">
+                <li id="cPages"></li>
+                <li id="bwPages"></li>
+                <li id="blankPages"></li>
+            </ul>
+            <button id="newUploadButton" style="display: none;">Analyze Another PDF</button>
+        </article>
+    </main>
+    <!-- Footer/reference -->
+    <hr>
+    <footer>
+        <p>
+            This webapp is enabled by <a href="https://www.ghostscript.com/index.html">Ghostscript</a>, which I have compiled to <a href="https://webassembly.org/">WebAssembly</a> using <a href="https://emscripten.org/">Emscripten</a>. Since Ghostscript is distributed under the <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">Affero General Public License</a>, the source code of this webapp is available under the same license on <a href="https://github.com/jkrimmer/ghostscript-cpages">GitHub &nearr;</a>.
+        </p>
+    </footer>
 
     <script type="module" src="libs/app.js"></script>
 </body>
