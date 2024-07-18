@@ -13,9 +13,10 @@
             <h1>PDF Pagecolor Analyzer</h1>
             <p>Select a PDF file to obtain the number of blank, black and white, and color pages of the document. The selected PDF file does <b>not</b> leave your device, all the processing happens locally in your browser. This way, we can ensure data privacy.</p>
             <aside><p>Depending on your file, the processing might take some time and your browser might seem stuck. If this happens, please be patient!</p></aside>
+            <hr>
             <!-- Buttons and so on -->
             <input type="file" id="pdfUpload" accept="application/pdf">
-            <button id="analyzeButton">Analyze PDF</button>
+            <button id="analyzeButton" style="display: block">Analyze PDF</button>
             <p id="nPages" style="display: none;"></p>
             <ul id="results" style="display: none;">
                 <li id="cPages"></li>
