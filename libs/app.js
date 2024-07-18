@@ -44,13 +44,17 @@ async function analyzePdf(file, fn) {
 
         // Ghostscript arguments and run Ghostscript asynchronously
         const gsargs = [
-            "-q",
-            "-ocolors.txt",
             "-sDEVICE=inkcov",
-            "input.pdf"
+            "-I/Resource/Init",
+            "-ocolors.txt",
+            "-q",
+            "input.pdf",
         ];
 
+        // const start = performance.now();
         wasmInstance.callMain(gsargs);
+        // const end = performance.now();
+        // console.log(`Execution time: ${end - start} ms`);
 
         const result = postProcessing();
         document.getElementById('nPages').style.display = 'block';
@@ -79,8 +83,8 @@ document.getElementById('analyzeButton').addEventListener('click', () => {
 });
 
 document.getElementById('newUploadButton').addEventListener('click', () => {
-    document.getElementById('pdfUpload').style.display = 'inline';
-    document.getElementById('analyzeButton').style.display = 'inline';
+    document.getElementById('pdfUpload').style.display = 'block';
+    document.getElementById('analyzeButton').style.display = 'block';
     document.getElementById('newUploadButton').style.display = 'none';
     document.getElementById('pdfUpload').value = '';
     document.getElementById('nPages').style.display = 'none';
