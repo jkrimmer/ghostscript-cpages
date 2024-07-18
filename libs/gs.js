@@ -28,7 +28,7 @@ var readyPromise = new Promise((resolve, reject) => {
   readyPromiseResolve = resolve;
   readyPromiseReject = reject;
 });
-["_memory","___indirect_function_table","_main","onRuntimeInitialized"].forEach((prop) => {
+["_memory","___emscripten_embedded_file_data","___indirect_function_table","_main","onRuntimeInitialized"].forEach((prop) => {
   if (!Object.getOwnPropertyDescriptor(readyPromise, prop)) {
     Object.defineProperty(readyPromise, prop, {
       get: () => abort('You are getting ' + prop + ' on the Promise object, instead of the instance. Use .then() to get called back with the instance, see the MODULARIZE docs in src/settings.js'),
@@ -4119,6 +4119,23 @@ function dbg(...args) {
   }
   }
 
+  
+  
+  var __emscripten_fs_load_embedded_files = (ptr) => {
+      do {
+        var name_addr = HEAPU32[((ptr)>>2)];
+        ptr += 4;
+        var len = HEAPU32[((ptr)>>2)];
+        ptr += 4;
+        var content = HEAPU32[((ptr)>>2)];
+        ptr += 4;
+        var name = UTF8ToString(name_addr)
+        FS.createPath('/', PATH.dirname(name), true, true);
+        // canOwn this data in the filesystem, it is a slice of wasm memory that will never change
+        FS.createDataFile(name, null, HEAP8.subarray(content, content + len), true, true, true);
+      } while (HEAPU32[((ptr)>>2)]);
+    };
+
   var nowIsMonotonic = 1;
   var __emscripten_get_now_is_monotonic = () => nowIsMonotonic;
 
@@ -4633,6 +4650,8 @@ var wasmImports = {
   /** @export */
   __syscall_unlinkat: ___syscall_unlinkat,
   /** @export */
+  _emscripten_fs_load_embedded_files: __emscripten_fs_load_embedded_files,
+  /** @export */
   _emscripten_get_now_is_monotonic: __emscripten_get_now_is_monotonic,
   /** @export */
   _emscripten_throw_longjmp: __emscripten_throw_longjmp,
@@ -4739,16 +4758,17 @@ var dynCall_idii = Module['dynCall_idii'] = createExportWrapper('dynCall_idii', 
 var dynCall_viiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiijiiiiii = Module['dynCall_viiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiijiiiiii'] = createExportWrapper('dynCall_viiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiijiiiiii', 40);
 var dynCall_viiiiiiiiiiiiiijiiiii = Module['dynCall_viiiiiiiiiiiiiijiiiii'] = createExportWrapper('dynCall_viiiiiiiiiiiiiijiiiii', 21);
 var dynCall_viiiiiiiii = Module['dynCall_viiiiiiiii'] = createExportWrapper('dynCall_viiiiiiiii', 10);
-var dynCall_iiiiiiiiiiiiiiii = Module['dynCall_iiiiiiiiiiiiiiii'] = createExportWrapper('dynCall_iiiiiiiiiiiiiiii', 16);
 var dynCall_iji = Module['dynCall_iji'] = createExportWrapper('dynCall_iji', 3);
 var dynCall_jji = Module['dynCall_jji'] = createExportWrapper('dynCall_jji', 3);
 var dynCall_iiiiiiiiiiiii = Module['dynCall_iiiiiiiiiiiii'] = createExportWrapper('dynCall_iiiiiiiiiiiii', 13);
+var dynCall_iiiiiiiiiiiiiiii = Module['dynCall_iiiiiiiiiiiiiiii'] = createExportWrapper('dynCall_iiiiiiiiiiiiiiii', 16);
 var dynCall_id = Module['dynCall_id'] = createExportWrapper('dynCall_id', 2);
 var dynCall_dd = Module['dynCall_dd'] = createExportWrapper('dynCall_dd', 2);
 var dynCall_viiiiiiii = Module['dynCall_viiiiiiii'] = createExportWrapper('dynCall_viiiiiiii', 9);
 var dynCall_fdd = Module['dynCall_fdd'] = createExportWrapper('dynCall_fdd', 3);
 var dynCall_iijii = Module['dynCall_iijii'] = createExportWrapper('dynCall_iijii', 5);
 var dynCall_iiiij = Module['dynCall_iiiij'] = createExportWrapper('dynCall_iiiij', 5);
+var dynCall_iiddi = Module['dynCall_iiddi'] = createExportWrapper('dynCall_iiddi', 5);
 var dynCall_iiiijj = Module['dynCall_iiiijj'] = createExportWrapper('dynCall_iiiijj', 6);
 var dynCall_iiiiijiiii = Module['dynCall_iiiiijiiii'] = createExportWrapper('dynCall_iiiiijiiii', 10);
 var dynCall_iiiiiiiifi = Module['dynCall_iiiiiiiifi'] = createExportWrapper('dynCall_iiiiiiiifi', 10);
@@ -4763,6 +4783,17 @@ var dynCall_iijj = Module['dynCall_iijj'] = createExportWrapper('dynCall_iijj', 
 var dynCall_iijjjjjj = Module['dynCall_iijjjjjj'] = createExportWrapper('dynCall_iijjjjjj', 8);
 var dynCall_iiijii = Module['dynCall_iiijii'] = createExportWrapper('dynCall_iiijii', 6);
 var dynCall_iiiijiiii = Module['dynCall_iiiijiiii'] = createExportWrapper('dynCall_iiiijiiii', 9);
+var ___emscripten_embedded_file_data = Module['___emscripten_embedded_file_data'] = 1452628;
+function invoke_vi(index,a1) {
+  var sp = stackSave();
+  try {
+    dynCall_vi(index,a1);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
 
 function invoke_ii(index,a1) {
   var sp = stackSave();
@@ -4801,17 +4832,6 @@ function invoke_iiii(index,a1,a2,a3) {
   var sp = stackSave();
   try {
     return dynCall_iiii(index,a1,a2,a3);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_vi(index,a1) {
-  var sp = stackSave();
-  try {
-    dynCall_vi(index,a1);
   } catch(e) {
     stackRestore(sp);
     if (e !== e+0) throw e;
