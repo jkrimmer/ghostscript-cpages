@@ -47,6 +47,7 @@ async function analyzePdf(file, fn) {
             "-sDEVICE=inkcov",
             "-I/Resource/Init",
             "-ocolors.txt",
+            "-dPDFSTOPONERROR",
             "-q",
             "input.pdf",
         ];
