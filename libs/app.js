@@ -45,7 +45,6 @@ async function analyzePdf(file, fn) {
         // Ghostscript arguments and run Ghostscript asynchronously
         const gsargs = [
             "-sDEVICE=inkcov",
-            "-I/Resource/Init",
             "-ocolors.txt",
             "-dPDFSTOPONERROR",
             "-q",

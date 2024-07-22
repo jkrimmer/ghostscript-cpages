@@ -10,7 +10,7 @@ var e = moduleArg, aa, ba, ca = new Promise((a, b) => {
   aa = a;
   ba = b;
 });
-["_memory", "___indirect_function_table", "___emscripten_embedded_file_data", "_main", "onRuntimeInitialized"].forEach(a => {
+["_memory", "___indirect_function_table", "_main", "onRuntimeInitialized"].forEach(a => {
   Object.getOwnPropertyDescriptor(ca, a) || Object.defineProperty(ca, a, {get:() => k("You are getting " + a + " on the Promise object, instead of the instance. Use .then() to get called back with the instance, see the MODULARIZE docs in src/settings.js"), set:() => k("You are setting " + a + " on the Promise object, instead of the instance. Use .then() to get called back with the instance, see the MODULARIZE docs in src/settings.js"),});
 });
 var da = "object" == typeof window, ea = "function" == typeof importScripts, l = "object" == typeof process && "object" == typeof process.versions && "string" == typeof process.versions.node, ia = !da && !l && !ea;
@@ -168,7 +168,7 @@ t(Math.imul, "This browser does not support Math.imul(), build with LEGACY_VM_SU
 t(Math.fround, "This browser does not support Math.fround(), build with LEGACY_VM_SUPPORT or POLYFILL_OLD_MATH_FUNCTIONS to add in a polyfill");
 t(Math.clz32, "This browser does not support Math.clz32(), build with LEGACY_VM_SUPPORT or POLYFILL_OLD_MATH_FUNCTIONS to add in a polyfill");
 t(Math.trunc, "This browser does not support Math.trunc(), build with LEGACY_VM_SUPPORT or POLYFILL_OLD_MATH_FUNCTIONS to add in a polyfill");
-var G = 0, H = null, Oa = null, Pa = {};
+var H = 0, I = null, Oa = null, Pa = {};
 function Qa(a) {
   for (var b = a;;) {
     if (!Pa[a]) {
@@ -178,11 +178,11 @@ function Qa(a) {
   }
 }
 function Ra(a) {
-  G++;
-  e.monitorRunDependencies?.(G);
-  a ? (t(!Pa[a]), Pa[a] = 1, null === H && "undefined" != typeof setInterval && (H = setInterval(() => {
+  H++;
+  e.monitorRunDependencies?.(H);
+  a ? (t(!Pa[a]), Pa[a] = 1, null === I && "undefined" != typeof setInterval && (I = setInterval(() => {
     if (wa) {
-      clearInterval(H), H = null;
+      clearInterval(I), I = null;
     } else {
       var b = !1, c;
       for (c in Pa) {
@@ -193,10 +193,10 @@ function Ra(a) {
   }, 10000))) : u("warning: run dependency added without ID");
 }
 function Sa(a) {
-  G--;
-  e.monitorRunDependencies?.(G);
+  H--;
+  e.monitorRunDependencies?.(H);
   a ? (t(Pa[a]), delete Pa[a]) : u("warning: run dependency removed without ID");
-  0 == G && (null !== H && (clearInterval(H), H = null), Oa && (a = Oa, Oa = null, a()));
+  0 == H && (null !== I && (clearInterval(I), I = null), Oa && (a = Oa, Oa = null, a()));
 }
 function k(a) {
   e.onAbort?.(a);
@@ -281,8 +281,8 @@ var db = a => {
   t("number" === typeof a);
   return "0x" + (a >>> 0).toString(16).padStart(8, "0");
 }, K = a => {
-  K.ga || (K.ga = {});
-  K.ga[a] || (K.ga[a] = 1, l && (a = "warning: " + a), u(a));
+  K.fa || (K.fa = {});
+  K.fa[a] || (K.fa[a] = 1, l && (a = "warning: " + a), u(a));
 }, fb = "undefined" != typeof TextDecoder ? new TextDecoder() : void 0, gb = (a, b) => {
   for (var c = b + NaN, d = b; a[d] && !(d >= c);) {
     ++d;
@@ -492,12 +492,12 @@ var ub = {open(a) {
   f && (a.node.timestamp = Date.now());
   return f;
 }, write(a, b, c, d) {
-  if (!a.tty || !a.tty.I.da) {
+  if (!a.tty || !a.tty.I.ba) {
     throw new O.g(60);
   }
   try {
     for (var f = 0; f < d; f++) {
-      a.tty.I.da(a.tty, b[c + f]);
+      a.tty.I.ba(a.tty, b[c + f]);
     }
   } catch (g) {
     throw new O.g(29);
@@ -532,7 +532,7 @@ var ub = {open(a) {
     a = nb.shift();
   }
   return a;
-}, da(a, b) {
+}, ba(a, b) {
   null === b || 10 === b ? (ta(gb(a.output, 0)), a.output = []) : 0 != b && a.output.push(b);
 }, fsync(a) {
   a.output && 0 < a.output.length && (ta(gb(a.output, 0)), a.output = []);
@@ -542,7 +542,7 @@ var ub = {open(a) {
   return 0;
 }, Ga() {
   return [24, 80];
-},}, wb = {da(a, b) {
+},}, wb = {ba(a, b) {
   null === b || 10 === b ? (u(gb(a.output, 0)), a.output = []) : 0 != b && a.output.push(b);
 }, fsync(a) {
   a.output && 0 < a.output.length && (u(gb(a.output, 0)), a.output = []);
@@ -559,9 +559,9 @@ var Q = {F:null, o() {
   if (24576 === (c & 61440) || O.isFIFO(c)) {
     throw new O.g(63);
   }
-  Q.F || (Q.F = {dir:{node:{C:Q.h.C, s:Q.h.s, lookup:Q.h.lookup, H:Q.h.H, rename:Q.h.rename, unlink:Q.h.unlink, rmdir:Q.h.rmdir, readdir:Q.h.readdir, symlink:Q.h.symlink}, stream:{u:Q.i.u}}, file:{node:{C:Q.h.C, s:Q.h.s}, stream:{u:Q.i.u, read:Q.i.read, write:Q.i.write, O:Q.i.O, N:Q.i.N, R:Q.i.R}}, link:{node:{C:Q.h.C, s:Q.h.s, readlink:Q.h.readlink}, stream:{}}, ia:{node:{C:Q.h.C, s:Q.h.s}, stream:O.za}});
+  Q.F || (Q.F = {dir:{node:{C:Q.h.C, s:Q.h.s, lookup:Q.h.lookup, H:Q.h.H, rename:Q.h.rename, unlink:Q.h.unlink, rmdir:Q.h.rmdir, readdir:Q.h.readdir, symlink:Q.h.symlink}, stream:{u:Q.i.u}}, file:{node:{C:Q.h.C, s:Q.h.s}, stream:{u:Q.i.u, read:Q.i.read, write:Q.i.write, O:Q.i.O, N:Q.i.N, R:Q.i.R}}, link:{node:{C:Q.h.C, s:Q.h.s, readlink:Q.h.readlink}, stream:{}}, ha:{node:{C:Q.h.C, s:Q.h.s}, stream:O.za}});
   c = O.createNode(a, b, c, d);
-  R(c.mode) ? (c.h = Q.F.dir.node, c.i = Q.F.dir.stream, c.j = {}) : O.isFile(c.mode) ? (c.h = Q.F.file.node, c.i = Q.F.file.stream, c.m = 0, c.j = null) : 40960 === (c.mode & 61440) ? (c.h = Q.F.link.node, c.i = Q.F.link.stream) : 8192 === (c.mode & 61440) && (c.h = Q.F.ia.node, c.i = Q.F.ia.stream);
+  R(c.mode) ? (c.h = Q.F.dir.node, c.i = Q.F.dir.stream, c.j = {}) : O.isFile(c.mode) ? (c.h = Q.F.file.node, c.i = Q.F.file.stream, c.m = 0, c.j = null) : 40960 === (c.mode & 61440) ? (c.h = Q.F.link.node, c.i = Q.F.link.stream) : 8192 === (c.mode & 61440) && (c.h = Q.F.ha.node, c.i = Q.F.ha.stream);
   c.timestamp = Date.now();
   a && (a.j[b] = c, a.timestamp = c.timestamp);
   return c;
@@ -597,7 +597,7 @@ var Q = {F:null, o() {
     }
   }
 }, lookup() {
-  throw O.Y[44];
+  throw O.X[44];
 }, H(a, b, c, d) {
   return Q.createNode(a, b, c, d);
 }, rename(a, b, c) {
@@ -742,7 +742,7 @@ var Q = {F:null, o() {
   function z(D) {
     function B(E) {
       r?.();
-      m || O.T(a, b, E, d, f, p);
+      m || O.V(a, b, E, d, f, p);
       g?.();
       Sa(v);
     }
@@ -787,8 +787,8 @@ function T(a, b = {}) {
   if (!a) {
     return {path:"", node:null};
   }
-  b = Object.assign({X:!0, fa:0}, b);
-  if (8 < b.fa) {
+  b = Object.assign({W:!0, ea:0}, b);
+  if (8 < b.ea) {
     throw new O.g(32);
   }
   a = a.split("/").filter(h => !!h);
@@ -799,10 +799,10 @@ function T(a, b = {}) {
     }
     c = S(c, a[f]);
     d = M(d + "/" + a[f]);
-    c.v && (!g || g && b.X) && (c = c.v.root);
+    c.v && (!g || g && b.W) && (c = c.v.root);
     if (!g || b.B) {
       for (g = 0; 40960 === (c.mode & 61440);) {
-        if (c = O.readlink(d), d = P(ib(d), c), c = T(d, {fa:b.fa + 1}).node, 40 < g++) {
+        if (c = O.readlink(d), d = P(ib(d), c), c = T(d, {ea:b.ea + 1}).node, 40 < g++) {
           throw new O.g(32);
         }
       }
@@ -812,7 +812,7 @@ function T(a, b = {}) {
 }
 function Hb(a) {
   for (var b;;) {
-    if (O.V(a)) {
+    if (O.U(a)) {
       return a = a.o.sa, b ? "/" !== a[a.length - 1] ? `${a}/${b}` : a + b : a;
     }
     b = b ? `${a.name}/${b}` : a.name;
@@ -882,7 +882,7 @@ function Mb(a, b, c) {
     if (!R(d.mode)) {
       return 54;
     }
-    if (O.V(d) || Hb(d) === O.cwd()) {
+    if (O.U(d) || Hb(d) === O.cwd()) {
       return 10;
     }
   } else {
@@ -904,7 +904,7 @@ function Nb(a, b = -1) {
   a = Object.assign(new O.va(), a);
   if (-1 == b) {
     a: {
-      for (b = 0; b <= O.ha; b++) {
+      for (b = 0; b <= O.ga; b++) {
         if (!O.streams[b]) {
           break a;
         }
@@ -939,9 +939,9 @@ function Rb(a, b) {
     a = c.path;
   } catch (f) {
   }
-  var d = {V:!1, exists:!1, error:0, name:null, path:null, object:null, La:!1, Na:null, Ma:null};
+  var d = {U:!1, exists:!1, error:0, name:null, path:null, object:null, La:!1, Na:null, Ma:null};
   try {
-    c = T(a, {parent:!0}), d.La = !0, d.Na = c.path, d.Ma = c.node, d.name = N(a), c = T(a, {B:!b}), d.exists = !0, d.path = c.path, d.object = c.node, d.name = c.node.name, d.V = "/" === c.path;
+    c = T(a, {parent:!0}), d.La = !0, d.Na = c.path, d.Ma = c.node, d.name = N(a), c = T(a, {B:!b}), d.exists = !0, d.path = c.path, d.object = c.node, d.name = c.node.name, d.U = "/" === c.path;
   } catch (f) {
     d.error = f.l;
   }
@@ -964,7 +964,7 @@ function Tb(a) {
     }
   }
 }
-var O = {root:null, P:[], la:{}, streams:[], Ja:1, D:null, ka:"/", U:!1, oa:!0, g:class extends Error {
+var O = {root:null, P:[], la:{}, streams:[], Ja:1, D:null, ka:"/", T:!1, oa:!0, g:class extends Error {
   constructor(a) {
     super(Ma ? L(Ub(a)) : "");
     this.name = "ErrnoError";
@@ -976,7 +976,7 @@ var O = {root:null, P:[], la:{}, streams:[], Ja:1, D:null, ka:"/", U:!1, oa:!0, 
       }
     }
   }
-}, Y:{}, Ca:null, S:0, va:class {
+}, X:{}, Ca:null, S:0, va:class {
   constructor() {
     this.G = {};
     this.node = null;
@@ -1035,7 +1035,7 @@ var O = {root:null, P:[], la:{}, streams:[], Ja:1, D:null, ka:"/", U:!1, oa:!0, 
   a = new O.ua(a, b, c, d);
   Ib(a);
   return a;
-}, V(a) {
+}, U(a) {
   return a === a.parent;
 }, isFile(a) {
   return 32768 === (a & 61440);
@@ -1043,12 +1043,12 @@ var O = {root:null, P:[], la:{}, streams:[], Ja:1, D:null, ka:"/", U:!1, oa:!0, 
   return 4096 === (a & 61440);
 }, isSocket(a) {
   return 49152 === (a & 49152);
-}, ha:4096, ma:a => O.streams[a], za:{open(a) {
+}, ga:4096, ma:a => O.streams[a], za:{open(a) {
   a.i = O.Da(a.node.rdev).i;
   a.i.open?.(a);
 }, u() {
   throw new O.g(70);
-},}, ba:a => a >> 8, cb:a => a & 255, K:(a, b) => a << 8 | b, Da:a => O.la[a], ta(a, b) {
+},}, aa:a => a >> 8, cb:a => a & 255, K:(a, b) => a << 8 | b, Da:a => O.la[a], ta(a, b) {
   function c(h) {
     t(0 < O.S);
     O.S--;
@@ -1082,7 +1082,7 @@ var O = {root:null, P:[], la:{}, streams:[], Ja:1, D:null, ka:"/", U:!1, oa:!0, 
     throw new O.g(10);
   }
   if (!d && !f) {
-    var g = T(c, {X:!1});
+    var g = T(c, {W:!1});
     c = g.path;
     g = g.node;
     if (g.v) {
@@ -1099,7 +1099,7 @@ var O = {root:null, P:[], la:{}, streams:[], Ja:1, D:null, ka:"/", U:!1, oa:!0, 
   d ? O.root = a : g && (g.v = b, g.o && g.o.P.push(b));
   return a;
 }, jb(a) {
-  a = T(a, {X:!1});
+  a = T(a, {W:!1});
   if (!a.node.v) {
     throw new O.g(28);
   }
@@ -1372,7 +1372,7 @@ var O = {root:null, P:[], la:{}, streams:[], Ja:1, D:null, ka:"/", U:!1, oa:!0, 
   b &= -131713;
   f = Nb({node:f, path:Hb(f), flags:b, seekable:!0, position:0, i:f.i, Pa:[], error:!1});
   f.i.open && f.i.open(f);
-  !e.logReadFiles || b & 1 || (O.ea || (O.ea = {}), a in O.ea || (O.ea[a] = 1));
+  !e.logReadFiles || b & 1 || (O.da || (O.da = {}), a in O.da || (O.da[a] = 1));
   return f;
 }, close(a) {
   if (null === a.fd) {
@@ -1484,11 +1484,11 @@ var O = {root:null, P:[], la:{}, streams:[], Ja:1, D:null, ka:"/", U:!1, oa:!0, 
 }, R(a, b, c, d, f) {
   t(0 <= c);
   return a.i.R ? a.i.R(a, b, c, d, f) : 0;
-}, aa(a, b, c) {
-  if (!a.i.aa) {
+}, $(a, b, c) {
+  if (!a.i.$) {
     throw new O.g(59);
   }
-  return a.i.aa(a, b, c);
+  return a.i.$(a, b, c);
 }, readFile(a, b = {}) {
   b.flags = b.flags || 0;
   b.encoding = b.encoding || "binary";
@@ -1529,8 +1529,8 @@ var O = {root:null, P:[], la:{}, streams:[], Ja:1, D:null, ka:"/", U:!1, oa:!0, 
   }
   O.ka = a.path;
 }, M(a, b, c) {
-  t(!O.M.U, "FS.init was previously called. If you want to initialize later with custom parameters, remove any earlier calls (note that one is automatically added to the generated code)");
-  O.M.U = !0;
+  t(!O.M.T, "FS.init was previously called. If you want to initialize later with custom parameters, remove any earlier calls (note that one is automatically added to the generated code)");
+  O.M.T = !0;
   e.stdin = a || e.stdin;
   e.stdout = b || e.stdout;
   e.stderr = c || e.stderr;
@@ -1544,7 +1544,7 @@ var O = {root:null, P:[], la:{}, streams:[], Ja:1, D:null, ka:"/", U:!1, oa:!0, 
   t(1 === b.fd, `invalid handle for stdout (${b.fd})`);
   t(2 === c.fd, `invalid handle for stderr (${c.fd})`);
 }, hb() {
-  O.M.U = !1;
+  O.M.T = !1;
   Vb(0);
   for (var a = 0; a < O.streams.length; a++) {
     var b = O.streams[a];
@@ -1553,7 +1553,7 @@ var O = {root:null, P:[], la:{}, streams:[], Ja:1, D:null, ka:"/", U:!1, oa:!0, 
 }, Za(a, b) {
   a = Rb(a, b);
   return a.exists ? a.object : null;
-}, W(a, b) {
+}, ja(a, b) {
   a = "string" == typeof a ? a : Hb(a);
   for (b = b.split("/").reverse(); b.length;) {
     var c = b.pop();
@@ -1567,7 +1567,7 @@ var O = {root:null, P:[], la:{}, streams:[], Ja:1, D:null, ka:"/", U:!1, oa:!0, 
     }
   }
   return d;
-}, T(a, b, c, d, f, g) {
+}, V(a, b, c, d, f, g) {
   var h = b;
   a && (a = "string" == typeof a ? a : Hb(a), h = b ? M(a + "/" + b) : a);
   a = Db(d, f);
@@ -1590,8 +1590,8 @@ var O = {root:null, P:[], la:{}, streams:[], Ja:1, D:null, ka:"/", U:!1, oa:!0, 
 }, A(a, b, c, d) {
   a = jb("string" == typeof a ? a : Hb(a), b);
   b = Db(!!c, !!d);
-  O.A.ba || (O.A.ba = 64);
-  var f = O.K(O.A.ba++, 0);
+  O.A.aa || (O.A.aa = 64);
+  var f = O.K(O.A.aa++, 0);
   tb(f, {open(g) {
     g.seekable = !1;
   }, close() {
@@ -1626,7 +1626,7 @@ var O = {root:null, P:[], la:{}, streams:[], Ja:1, D:null, ka:"/", U:!1, oa:!0, 
     return r;
   }});
   return Qb(a, b, f);
-}, ja(a, b, c, d, f) {
+}, ia(a, b, c, d, f) {
   function g(n, v, D, B, E) {
     n = n.node.j;
     if (E >= n.length) {
@@ -1647,19 +1647,19 @@ var O = {root:null, P:[], la:{}, streams:[], Ja:1, D:null, ka:"/", U:!1, oa:!0, 
   }
   class h {
     constructor() {
-      this.$ = !1;
+      this.Z = !1;
       this.G = [];
-      this.Z = void 0;
+      this.Y = void 0;
       this.pa = this.qa = 0;
     }
     get(n) {
       if (!(n > this.length - 1 || 0 > n)) {
         var v = n % this.chunkSize;
-        return this.Z(n / this.chunkSize | 0)[v];
+        return this.Y(n / this.chunkSize | 0)[v];
       }
     }
     Ka(n) {
-      this.Z = n;
+      this.Y = n;
     }
     ra() {
       var n = new XMLHttpRequest();
@@ -1684,16 +1684,16 @@ var O = {root:null, P:[], la:{}, streams:[], Ja:1, D:null, ka:"/", U:!1, oa:!0, 
           if (ha > v - 1) {
             throw Error("only " + v + " bytes available! programmer error!");
           }
-          var I = new XMLHttpRequest();
-          I.open("GET", c, !1);
-          v !== E && I.setRequestHeader("Range", "bytes=" + za + "-" + ha);
-          I.responseType = "arraybuffer";
-          I.overrideMimeType && I.overrideMimeType("text/plain; charset=x-user-defined");
-          I.send(null);
-          if (!(200 <= I.status && 300 > I.status || 304 === I.status)) {
-            throw Error("Couldn't load " + c + ". Status: " + I.status);
+          var G = new XMLHttpRequest();
+          G.open("GET", c, !1);
+          v !== E && G.setRequestHeader("Range", "bytes=" + za + "-" + ha);
+          G.responseType = "arraybuffer";
+          G.overrideMimeType && G.overrideMimeType("text/plain; charset=x-user-defined");
+          G.send(null);
+          if (!(200 <= G.status && 300 > G.status || 304 === G.status)) {
+            throw Error("Couldn't load " + c + ". Status: " + G.status);
           }
-          za = void 0 !== I.response ? new Uint8Array(I.response || []) : qb(I.responseText || "");
+          za = void 0 !== G.response ? new Uint8Array(G.response || []) : qb(G.responseText || "");
           oc[fa] = za;
         }
         if ("undefined" == typeof F.G[fa]) {
@@ -1702,18 +1702,18 @@ var O = {root:null, P:[], la:{}, streams:[], Ja:1, D:null, ka:"/", U:!1, oa:!0, 
         return F.G[fa];
       });
       if (n || !v) {
-        E = v = 1, E = v = this.Z(0).length, ta("LazyFiles on gzip forces download of the whole file when length is accessed");
+        E = v = 1, E = v = this.Y(0).length, ta("LazyFiles on gzip forces download of the whole file when length is accessed");
       }
       this.qa = v;
       this.pa = E;
-      this.$ = !0;
+      this.Z = !0;
     }
     get length() {
-      this.$ || this.ra();
+      this.Z || this.ra();
       return this.qa;
     }
     get chunkSize() {
-      this.$ || this.ra();
+      this.Z || this.ra();
       return this.pa;
     }
   }
@@ -1871,11 +1871,11 @@ var Zb = (a, b, c) => {
   b || (a >= jc.length && (jc.length = a + 1), jc[a] = b = kc.get(a));
   t(kc.get(a) == b, "JavaScript-side Wasm function table mirror is out of date!");
   return b;
-}, lc = O.W, mc = O.ja, nc = O.A;
+}, lc = O.ja, mc = O.ia, nc = O.A;
 O.Aa = Cb;
 [44].forEach(a => {
-  O.Y[a] = new O.g(a);
-  O.Y[a].stack = "<generic error, no stack>";
+  O.X[a] = new O.g(a);
+  O.X[a].stack = "<generic error, no stack>";
 });
 O.D = Array(4096);
 O.o(Q, {}, "/");
@@ -1914,11 +1914,11 @@ O.mkdir("/home/web_user");
   }}, {}, "/proc/self/fd");
 })();
 O.Ca = {MEMFS:Q,};
-e.FS_createPath = O.W;
-e.FS_createDataFile = O.T;
+e.FS_createPath = O.ja;
+e.FS_createDataFile = O.V;
 e.FS_createPreloadedFile = O.Aa;
 e.FS_unlink = O.unlink;
-e.FS_createLazyFile = O.ja;
+e.FS_createLazyFile = O.ia;
 e.FS_createDevice = O.A;
 var yc = {__assert_fail:(a, b, c, d) => {
   k(`Assertion failed: ${L(a)}, at: ` + [b ? L(b) : "unknown filename", c, d ? L(d) : "unknown function"]);
@@ -1939,7 +1939,7 @@ var yc = {__assert_fail:(a, b, c, d) => {
     if (d.fd === b) {
       return -28;
     }
-    if (0 > b || b >= O.ha) {
+    if (0 > b || b >= O.ga) {
       return -8;
     }
     var f = O.ma(b);
@@ -2077,7 +2077,7 @@ var yc = {__assert_fail:(a, b, c, d) => {
       case 21520:
         return d.tty ? -28 : -59;
       case 21531:
-        return f = V(), O.aa(d, b, f);
+        return f = V(), O.$(d, b, f);
       case 21523:
         if (!d.tty) {
           return -59;
@@ -2169,18 +2169,6 @@ var yc = {__assert_fail:(a, b, c, d) => {
     }
     return -d.l;
   }
-}, _emscripten_fs_load_embedded_files:a => {
-  do {
-    var b = A[a >> 2];
-    a += 4;
-    var c = A[a >> 2];
-    a += 4;
-    var d = A[a >> 2];
-    a += 4;
-    b = L(b);
-    O.W("/", ib(b), !0, !0);
-    O.T(b, null, x.subarray(d, d + c), !0, !0, !0);
-  } while (A[a >> 2]);
 }, _emscripten_get_now_is_monotonic:() => 1, _emscripten_throw_longjmp:() => {
   throw Infinity;
 }, _gmtime_js:function(a, b) {
@@ -2385,7 +2373,6 @@ var yc = {__assert_fail:(a, b, c, d) => {
   }).catch(ba);
   return {};
 }(), zc = e._main = Ua("__main_argc_argv", 2), Ub = Ua("strerror", 1), Vb = Ua("fflush", 1), Y = Ua("setThrew", 2), Ac = () => (Ac = J.emscripten_stack_init)(), Da = () => (Da = J.emscripten_stack_get_end)(), Z = a => (Z = J._emscripten_stack_restore)(a), Bc = a => (Bc = J._emscripten_stack_alloc)(a), W = () => (W = J.emscripten_stack_get_current)();
-e.___emscripten_embedded_file_data = 6123296;
 function pc(a, b) {
   var c = W();
   try {
@@ -2503,7 +2490,7 @@ e.FS_createPath = lc;
 e.FS_createDevice = nc;
 e.FS = O;
 e.FS_createDataFile = (a, b, c, d, f, g) => {
-  O.T(a, b, c, d, f, g);
+  O.V(a, b, c, d, f, g);
 };
 e.FS_createLazyFile = mc;
 "writeI53ToI64 writeI53ToI64Clamped writeI53ToI64Signaling writeI53ToU64Clamped writeI53ToU64Signaling readI53FromI64 readI53FromU64 convertI32PairToI53 convertI32PairToI53Checked convertU32PairToI53 getTempRet0 setTempRet0 arraySum addDays inetPton4 inetNtop4 inetPton6 inetNtop6 readSockaddr writeSockaddr emscriptenLog readEmAsmArgs jstoi_q listenOnce autoResumeAudioContext getDynCaller dynCall runtimeKeepalivePush runtimeKeepalivePop callUserCallback maybeExit asmjsMangle HandleAllocator getNativeTypeSize STACK_SIZE STACK_ALIGN POINTER_SIZE ASSERTIONS getCFunc ccall cwrap uleb128Encode sigToWasmTypes generateFuncType convertJsFunctionToWasm getEmptyTableSlot updateTableMap getFunctionAddress addFunction removeFunction reallyNegative unSign strLen reSign formatString intArrayToString AsciiToString UTF16ToString stringToUTF16 lengthBytesUTF16 UTF32ToString stringToUTF32 lengthBytesUTF32 stringToNewUTF8 writeArrayToMemory registerKeyEventCallback maybeCStringToJsString findEventTarget getBoundingClientRect fillMouseEventData registerMouseEventCallback registerWheelEventCallback registerUiEventCallback registerFocusEventCallback fillDeviceOrientationEventData registerDeviceOrientationEventCallback fillDeviceMotionEventData registerDeviceMotionEventCallback screenOrientation fillOrientationChangeEventData registerOrientationChangeEventCallback fillFullscreenChangeEventData registerFullscreenChangeEventCallback JSEvents_requestFullscreen JSEvents_resizeCanvasForFullscreen registerRestoreOldStyle hideEverythingExceptGivenElement restoreHiddenElements setLetterbox softFullscreenResizeWebGLRenderTarget doRequestFullscreen fillPointerlockChangeEventData registerPointerlockChangeEventCallback registerPointerlockErrorEventCallback requestPointerLock fillVisibilityChangeEventData registerVisibilityChangeEventCallback registerTouchEventCallback fillGamepadEventData registerGamepadEventCallback registerBeforeUnloadEventCallback fillBatteryEventData battery registerBatteryEventCallback setCanvasElementSize getCanvasElementSize jsStackTrace getCallstack convertPCtoSourceLocation checkWasiClock wasiRightsToMuslOFlags wasiOFlagsToMuslOFlags createDyncallWrapper safeSetTimeout setImmediateWrapped clearImmediateWrapped polyfillSetImmediate getPromise makePromise idsToPromises makePromiseCallback ExceptionInfo findMatchingCatch Browser_asyncPrepareDataCounter setMainLoop getSocketFromFD getSocketAddress FS_mkdirTree _setNetworkCallback heapObjectForWebGLType toTypedArrayIndex webgl_enable_ANGLE_instanced_arrays webgl_enable_OES_vertex_array_object webgl_enable_WEBGL_draw_buffers webgl_enable_WEBGL_multi_draw emscriptenWebGLGet computeUnpackAlignedImageSize colorChannelsInGlTextureFormat emscriptenWebGLGetTexPixelData emscriptenWebGLGetUniform webglGetUniformLocation webglPrepareUniformLocationsBeforeFirstUse webglGetLeftBracePos emscriptenWebGLGetVertexAttrib __glGetActiveAttribOrUniform writeGLArray registerWebGlEventCallback runAndAbortIfError ALLOC_NORMAL ALLOC_STACK allocate writeStringToMemory writeAsciiToMemory setErrNo demangle stackTrace".split(" ").forEach(function(a) {
@@ -2523,7 +2510,7 @@ Oa = function Ec() {
   Dc || (Oa = Ec);
 };
 function Cc(a = []) {
-  t(0 == G, 'cannot call main when async dependencies remain! (listen on Module["onRuntimeInitialized"])');
+  t(0 == H, 'cannot call main when async dependencies remain! (listen on Module["onRuntimeInitialized"])');
   t(0 == Ia.length, "cannot call main when preRun functions remain to be called");
   a.unshift(la);
   var b = a.length, c = Bc(4 * (b + 1)), d = c;
@@ -2549,7 +2536,7 @@ function Fc() {
       t(!Ma);
       Ma = !0;
       Ea();
-      e.noFSInit || O.M.U || O.M();
+      e.noFSInit || O.M.T || O.M();
       O.oa = !1;
       db(Ja);
       Ea();
@@ -2567,7 +2554,7 @@ function Fc() {
       db(La);
     }
   }
-  if (!(0 < G)) {
+  if (!(0 < H)) {
     Ac();
     Ca();
     if (e.preRun) {
@@ -2576,7 +2563,7 @@ function Fc() {
       }
     }
     db(Ia);
-    0 < G || (e.setStatus ? (e.setStatus("Running..."), setTimeout(function() {
+    0 < H || (e.setStatus ? (e.setStatus("Running..."), setTimeout(function() {
       setTimeout(function() {
         e.setStatus("");
       }, 1);
