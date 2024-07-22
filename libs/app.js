@@ -52,10 +52,10 @@ async function analyzePdf(file, fn) {
             "input.pdf",
         ];
 
-        // const start = performance.now();
+        const start = performance.now();
         wasmInstance.callMain(gsargs);
-        // const end = performance.now();
-        // console.log(`Execution time: ${end - start} ms`);
+        const end = performance.now();
+        console.log(`Execution time: ${end - start} ms`);
 
         const result = postProcessing();
         document.getElementById('nPages').style.display = 'block';
