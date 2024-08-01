@@ -61,9 +61,8 @@ async function analyzePdf(file, fn) {
         document.getElementById('results').style.display = 'block';
 
         document.getElementById('nPages').innerHTML = `Found ${result["nPages"]} pages in the file "${fn}". Thereof,`;
-        document.getElementById('cPages').innerHTML = `${result["cPages"]} contain color,`;
-        document.getElementById('bwPages').innerHTML = `${result["bwPages"]} are black and white,`;
-        document.getElementById('blankPages').innerHTML = `and ${result["blankPages"]} are blank.`;
+        document.getElementById('bwPages').innerHTML = `${result["bwPages"] + result["blankPages"]} are black and white (${result["blankPages"]} of which are blank) and`;
+        document.getElementById('cPages').innerHTML = `${result["cPages"]} contain color.`;
 
         document.getElementById('pdfUpload').style.display = 'none';
         document.getElementById('analyzeButton').style.display = 'none';
